@@ -4,8 +4,12 @@ config.port = 8000;
 config.key  = '/etc/ssl/private/ssl-cert-snakeoil.key';
 config.cert = '/etc/ssl/certs/ssl-cert-snakeoil.pem';
 
+// Use this protocol if client doesn't support npn
+// Set this to null to drop the connection.
 config.default = 'http';
 config.protocols = {
+    // Hidden protocols are not advertised during
+    // handshake.
     ssh:  {host: '127.0.0.1', port: 22, hidden: true},
     http: {host: '127.0.0.1', port: 80, hidden: true},
     // nc -l -p 3000
