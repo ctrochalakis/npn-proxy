@@ -1,11 +1,12 @@
-npn-proxy
-=========
+# npn-proxy
 
 A tls npn proxy layer on top of tcp.
 
 The NPN tls extension can be used to hide services behind a single
 port. During the handshake the protocol is negotiated and the connection
 is redirected accordingly to the correct service.
+
+## Server
 
     # Install node (tested with 0.6.x)
     $ apt-get install nodejs
@@ -32,6 +33,13 @@ is redirected accordingly to the correct service.
 
     module.exports = config;
 
+    $ vim npn-server.config.js
+
+    # start server
+    $ sudo nodejs npn-proxy.js
+
+## Client
+
     $ cp npn-client.config.js.sample npn-client.config.js
     $ cat npn-client.config.js
     var config = {};
@@ -40,11 +48,6 @@ is redirected accordingly to the correct service.
     config.npn_host = '127.0.0.1';
 
     module.exports = config;
-
-    $ vim npn-server.config.js
-
-    # start server
-    $ sudo nodejs npn-proxy.js
 
     # start client
     $ nodejs npn-client.js ssh 127.0.0.1 2222
