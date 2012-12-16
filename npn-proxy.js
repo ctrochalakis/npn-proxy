@@ -3,16 +3,17 @@ var net = require('net');
 var fs = require('fs');
 var config = require('./npn-server.config');
 
-var npnProtocols = [];
+var publicNpnProtocols = [];
 Object.keys(config.protocols).forEach(function(key) {
-    npnProtocols.push(key);
+    if(!config.protocols[key].hidden)
+	publicNpnProtocols.push(key);
 });
-console.log(npnProtocols);
+console.log('public protocols:', publicNpnProtocols);
 
 var options = {
     key: fs.readFileSync(config.key),
     cert: fs.readFileSync(config.cert),
-    NPNProtocols: npnProtocols
+    NPNProtocols: publicNpnProtocols
 };
 
 var server = tls.createServer(options, function(stream) {

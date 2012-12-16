@@ -6,10 +6,10 @@ config.cert = '/etc/ssl/certs/ssl-cert-snakeoil.pem';
 
 config.default = 'http';
 config.protocols = {
-    ssh:  {host: '127.0.0.1', port: 22},
-    http: {host: '127.0.0.1', port: 80},
+    ssh:  {host: '127.0.0.1', port: 22, hidden: true},
+    http: {host: '127.0.0.1', port: 80, hidden: true},
     // nc -l -p 3000
-    echo: {host: '127.0.0.1', port: 3000}
+    echo: {host: '127.0.0.1', port: 3000, hidden: false}
 };
 
 module.exports = config;
