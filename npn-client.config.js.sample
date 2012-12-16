@@ -1,0 +1,7 @@
+var config = {};
+
+config.npn_port = 8000;
+config.npn_host = '127.0.0.1';
+
+module.exports = config;
+

@@ -1,0 +1,16 @@
+var config = {};
+
+config.port = 8000;
+config.key  = '/etc/ssl/private/ssl-cert-snakeoil.key';
+config.cert = '/etc/ssl/certs/ssl-cert-snakeoil.pem';
+
+config.default = 'http';
+config.protocols = {
+    ssh:  {host: '127.0.0.1', port: 22},
+    http: {host: '127.0.0.1', port: 80},
+    // nc -l -p 3000
+    echo: {host: '127.0.0.1', port: 3000}
+};
+
+module.exports = config;
+
