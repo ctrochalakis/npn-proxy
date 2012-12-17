@@ -7,11 +7,18 @@ config.cert = '/etc/ssl/certs/ssl-cert-snakeoil.pem';
 // Use this protocol if client doesn't support npn
 // Set this to null to drop the connection.
 config.default = 'http';
+var ssl_options = {
+    rejectUnauthorized: false
+};
 config.protocols = {
     // Hidden protocols are not advertised during
     // handshake.
     ssh:  {host: '127.0.0.1', port: 22, hidden: true},
     http: {host: '127.0.0.1', port: 80, hidden: true},
+    // You might want to speak ssl with the backend but hide
+    // that from the client. Remember, the client already speaks
+    // ssl with the node proxy.
+    imap:  {host: '127.0.0.1', port: 993, hidden: true, wrap_ssl: ssl_options},
     // nc -l -p 3000
     echo: {host: '127.0.0.1', port: 3000, hidden: false}
 };

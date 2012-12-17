@@ -23,6 +23,7 @@ var server = tls.createServer(options, function(stream) {
 
     var protocol = stream.npnProtocol || config.default;
     var dst = config.protocols[protocol];
+
     if(!dst){
 	console.log(protocol, 'not supported closing connection');
 	stream.end();
@@ -31,11 +32,17 @@ var server = tls.createServer(options, function(stream) {
 
     console.log('protocol:', dst.host, dst.port);
 
-    var client = net.connect(dst.port, dst.host, function() {
+    function pipe() {
 	stream.pipe(this);
 	stream.resume();
 	this.pipe(stream);
-    });
+    };
+
+    if(options = dst.wrap_ssl) {
+	var client = tls.connect(dst.port, dst.host, options, pipe);
+    } else {
+	var client = net.connect(dst.port, dst.host, pipe);
+    }
 
     client.on('error', function (e) {
 	console.log('proxied connection:', e.code);
