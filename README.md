@@ -54,5 +54,17 @@ is redirected accordingly to the correct service.
 
     $ ssh -p 2222 127.0.0.1
 
+## Why?
+
+Because you can wrap every ssl protocol without breaking anything (https,
+imaps), just fallback to the standard service for this port.
+
+## SSH
+
+On the client side you can add something like the following snippet to your
+~/.ssh/config, assuming with have a recent openssl version.
+
+    host npnserver
+        ProxyCommand openssl s_client -connect npnserver:443 -nextprotoneg ssh 2>/dev/null
 
 
