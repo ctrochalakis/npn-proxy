@@ -53,5 +53,15 @@ var server = tls.createServer(options, function(stream) {
 
 server.listen(config.port, function() {
   console.log('npn-server bound to:', config.port);
+
+  // Drop privileges
+  try {
+	  if(config.group) process.setgid(config.group);
+	  if(config.user)  process.setuid(config.user);
+  } catch (err) {
+	  console.log('Failed to setuid/setgid, quiting', err);
+	  process.exit(1);
+  }
+
 });
 

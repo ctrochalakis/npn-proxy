@@ -19,6 +19,11 @@ is redirected accordingly to the correct service.
     config.key  = '/etc/ssl/private/ssl-cert-snakeoil.key';
     config.cert = '/etc/ssl/certs/ssl-cert-snakeoil.pem';
 
+    // Drop privileges after binding and reading certs
+    // if necessary
+    config.user = 'nobody'
+    config.group = 'nogroup'
+
     // Use this protocol if client doesn't support npn
     // Set this to null to drop the connection.
     config.default = 'http';
